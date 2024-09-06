@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom"
 const Home = () => {
     const navigate = useNavigate();
     useEffect(() => {
+        if (localStorage.length === 0 && (window.location.pathname != '/login' || window.location.pathname != '/register')) {
+            navigate('/login');
+        }
         function getSession() {
             const localStorageData = localStorage.getItem('uid');
 
@@ -15,6 +18,7 @@ const Home = () => {
             const parsedData = JSON.parse(localStorageData);
 
             const pregnancy_date = parsedData.pregnancyDate;
+
 
             let year = pregnancy_date.split('/')[2]
             if (year < 2000) {

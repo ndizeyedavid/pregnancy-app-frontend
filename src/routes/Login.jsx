@@ -25,7 +25,8 @@ const Login = () => {
         // console.log(formObject);
 
 
-        axios.post('http://localhost:3000/users/login', formObject)
+        axios.post('https://pregnancy-app-backend-4rjb.onrender.com/users/login', formObject)
+            // axios.post(import.meta.env.VITE_BACKEND_URL + '/users/login', formObject)
             .then(response => {
                 setLoading(false);
                 e.target.reset();
@@ -61,7 +62,7 @@ const Login = () => {
                 }
             })
             .catch(error => {
-                setError('Registration failed. Code: 0X512')
+                setError('Login failed. Code: 0X512')
                 setLoading(false);
                 console.error(error)
             });

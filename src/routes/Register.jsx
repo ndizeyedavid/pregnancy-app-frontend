@@ -28,7 +28,7 @@ const Register = () => {
             setLoading(false);
         } else {
 
-            axios.post('http://localhost:3000/users/register', formObject)
+            axios.post(import.meta.env.VITE_BACKEND_URL + '/users/register', formObject)
                 .then(response => {
                     setLoading(false);
                     e.target.reset();
