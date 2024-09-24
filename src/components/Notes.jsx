@@ -10,7 +10,7 @@ const Notes = () => {
             let parsedData = JSON.parse(session);
             return parsedData.uid;
         }
-        axios.get('http://localhost:3000/notes/view?id=' + myId()).then((response) => {
+        axios.get('https://pregnancy-app-backend-b76r.onrender.com/notes/view?id=' + myId()).then((response) => {
             const data = response.data.data;
 
             if (data.length > 0) {
