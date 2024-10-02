@@ -32,7 +32,7 @@ const Doctor = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/users/messages/view?id=${getUserId()}`)
+        axios.get(import.meta.env.VITE_BACKEND_URL + `/users/messages/view?id=${getUserId()}`)
             .then(response => {
                 const data = response.data;
                 setMessages(data);
