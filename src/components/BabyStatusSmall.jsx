@@ -159,7 +159,7 @@ const BabyStatusSmall = () => {
                                 }
                             </div>
                             <div className="flex-col justify-start items-start gap-2.5 inline-flex">
-                                <div className="text-[#8c8a8a] text-[14px] font-normal">Blood pressure</div>
+                                <div className="text-[#8c8a8a] text-[14px] font-normal">Heart Beat Rate</div>
                                 {blood_pressure != 0 ?
                                     <div className="self-stretch font-[600] text-black text-md">{blood_pressure} kPa</div>
                                     :
