@@ -43,7 +43,7 @@ const Header = ({ action, head, profile }) => {
         // console.log(formObject.note);
         // console.log(uid);
         e.target.reset();
-        axios.post('http://localhost:3000/notes/add', {
+        axios.post(import.meta.env.VITE_BACKEND_URL + '/notes/add', {
             id: uid,
             note: formObject.note
         })
