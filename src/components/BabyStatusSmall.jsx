@@ -116,24 +116,36 @@ const BabyStatusSmall = () => {
         //         })
         // }
 
-        let randomPressure_1 = Math.floor(Math.random() * 105);
-        let randomTemperature_1 = Math.floor(Math.random() * 50);
-        function generateRandom() {
-            if (randomTemperature_1 < 30) {
-                randomTemperature_1 = Math.floor(Math.random() * 70);
-            }
-            if (randomPressure_1 < 90) {
-                randomPressure_1 = Math.floor(Math.random() * 105);
-            }
+        function fetch_userdetails(user){
+            // console.log(user);
+            
+            axios.get(import.meta.env.VITE_BACKEND_URL + '/users/status?id=' + user)
+                .then(response => {
+                    const data = response.data.user_status;
+                    console.log(data);  
 
-            const randomPressure_2 = Math.floor(Math.random() * 99)
-            const randomTemperature_2 = Math.floor(Math.random() * 99)
-            setBloodPressure(randomPressure_1 + '.' + randomPressure_2);
-            setTemperature(randomTemperature_1 + '.' + randomTemperature_2);
+                    // Temperature
+                    if (data.temperature != 0){
+                        setTemperature(data.temperature);
+                    }else{
+                        setTemperature("N/A")
+                    }
+
+                    // Blood pressure
+                    if (data.blood_pressure != 0) {
+                        setBloodPressure(data.blood_pressure);
+                    }else{
+                        setBloodPressure("N/A");
+                    }
+                })
+                .catch((err)=>{
+                    console.log('An error occured');
+                })
+
         }
-
-
-        setInterval(generateRandom, 2000);
+        
+        fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid)
+        // setInterval(fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid), 2000);
         // generateRandom();
     }, []);
 
@@ -159,7 +171,7 @@ const BabyStatusSmall = () => {
                                 }
                             </div>
                             <div className="flex-col justify-start items-start gap-2.5 inline-flex">
-                                <div className="text-[#8c8a8a] text-[14px] font-normal">Heart Beat Rate</div>
+                                <div className="text-[#8c8a8a] text-[14px] font-normal">Blood pressure</div>
                                 {blood_pressure != 0 ?
                                     <div className="self-stretch font-[600] text-black text-md">{blood_pressure} kPa</div>
                                     :
