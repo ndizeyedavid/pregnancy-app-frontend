@@ -14,6 +14,8 @@ import Login from "./routes/Login";
 import Register from "./routes/Register";
 import ErrorPage from "./routes/ErrorPage";
 
+import Sports from "./routes/Sports";
+
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: "/food",
     element: <FoodPage />
+  },
+  {
+    path: "/sports",
+    element: <Sports />
   },
   {
     path: "/doctor",
