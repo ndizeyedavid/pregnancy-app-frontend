@@ -1,21 +1,27 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function deleteNote(id) {
-    console.log('Ready delete', id);
-
-    axios.get(import.meta.env.VITE_BACKEND_URL + "/notes/delete?id=" + id)
-        .then(response => {
-            console.log("Deleted");
-            window.location.reload();
-        })
-        .catch(err => {
-            console.log("an error occurred");
-
-        })
-
-}
 
 const Note = ({ title, id }) => {
+    const navigate = useNavigate();
+
+    function deleteNote(id) {
+        console.log('Ready delete', id);
+    
+        axios.get(import.meta.env.VITE_BACKEND_URL + "/notes/delete?id=" + id)
+            .then(response => {
+                console.log("Deleted");
+                // window.location.reload();
+                navigate('/')
+            })
+            .catch(err => {
+                console.log("an error occurred");
+    
+            })
+    
+    }
+    
+
     return (
         <>
             <div className="inline-flex items-center justify-center w-full h-3">
