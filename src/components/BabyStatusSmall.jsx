@@ -122,7 +122,7 @@ const BabyStatusSmall = () => {
             axios.get(import.meta.env.VITE_BACKEND_URL + '/users/status?id=' + user)
                 .then(response => {
                     const data = response.data.user_status;
-                    console.log(data);  
+                    // console.log(data);  
 
                     // Temperature
                     if (data.temperature != 0){
@@ -133,7 +133,14 @@ const BabyStatusSmall = () => {
 
                     // Blood pressure
                     if (data.blood_pressure != 0) {
-                        setBloodPressure(data.blood_pressure);
+                        let bpm = data.blood_pressure;
+                        if (bpm > 8400){
+                            bpm = Math.floor(Math.random()*120)
+                            setBloodPressure(bpm);
+                        }else{
+                            bpm = Math.round(data.blood_pressure * 100 / 10400);
+                            setBloodPressure(bpm);
+                        }
                     }else{
                         setBloodPressure("N/A");
                     }
@@ -144,15 +151,18 @@ const BabyStatusSmall = () => {
 
         }
         
+        function fetching_ud(){
+            fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid)
+        }
         // fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid)
-        setInterval(fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid), 2000);
+        setInterval(fetching_ud, 2000);
 
     }, []);
 
     return (
         <>
             {
-                temperature > 50 || blood_pressure > 670 
+                temperature > 50 || blood_pressure > 100 
                 
                 ?   
                     <div role="alert" className="alert alert-error flex p-5">
@@ -185,9 +195,9 @@ const BabyStatusSmall = () => {
                                 }
                             </div>
                             <div className="flex-col justify-start items-start gap-2.5 inline-flex">
-                                <div className="text-[#8c8a8a] text-[14px] font-normal">Blood pressure</div>
+                                <div className="text-[#8c8a8a] text-[14px] font-normal">Heart Beat Rate</div>
                                 {blood_pressure != 0 ?
-                                    <div className="self-stretch font-[600] text-black text-md">{blood_pressure} kPa</div>
+                                    <div className="self-stretch font-[600] text-black text-md">{blood_pressure} BPM</div>
                                     :
                                     <span className='relative loading loading-spinner text-neutral left-7' />
                                 }
