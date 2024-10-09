@@ -1,28 +1,45 @@
+import  axios from "axios";
 import { useEffect, useState } from "react";
+
 
 const BabyStatusSmall = () => {
     const [temperature, setTemperature] = useState(0);
     const [blood_pressure, setBloodPressure] = useState(0);
 
     useEffect(() => {
-        let randomPressure_1 = Math.floor(Math.random() * 105);
-        let randomTemperature_1 = Math.floor(Math.random() * 50);
-        function generateRandom() {
-            if (randomTemperature_1 < 30) {
-                randomTemperature_1 = Math.floor(Math.random() * 70);
-            }
-            if (randomPressure_1 < 90) {
-                randomPressure_1 = Math.floor(Math.random() * 105);
-            }
 
-            const randomPressure_2 = Math.floor(Math.random() * 99)
-            const randomTemperature_2 = Math.floor(Math.random() * 99)
-            setBloodPressure(randomPressure_1 + '.' + randomPressure_2);
-            setTemperature(randomTemperature_1 + '.' + randomTemperature_2);
+        function fetch_userdetails(user){
+            // console.log(user);
+            
+            axios.get(import.meta.env.VITE_BACKEND_URL + '/users/status?id=' + user)
+                .then(response => {
+                    const data = response.data.user_status;
+                    console.log(data);  
+
+                    // Temperature
+                    if (data.temperature != 0){
+                        setTemperature(data.temperature);
+                    }else{
+                        setTemperature("N/A")
+                    }
+
+                    // Blood pressure
+                    if (data.blood_pressure != 0) {
+                        setBloodPressure(data.blood_pressure);
+                    }else{
+                        setBloodPressure("N/A");
+                    }
+                })
+                .catch((err)=>{
+                    console.log('An error occured');
+                })
+
         }
+        
+        // fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid)
+        setInterval(fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid), 2000);
 
-
-        setInterval(generateRandom, 2000);
+        
     }, [])
     return (
         <>
