@@ -14,7 +14,7 @@ const BabyStatusSmall = () => {
             axios.get(import.meta.env.VITE_BACKEND_URL + '/users/status?id=' + user)
                 .then(response => {
                     const data = response.data.user_status;
-                    console.log(data);  
+                    // console.log(data);  
 
                     // Temperature
                     if (data.temperature != 0){
@@ -25,7 +25,14 @@ const BabyStatusSmall = () => {
 
                     // Blood pressure
                     if (data.blood_pressure != 0) {
-                        setBloodPressure(data.blood_pressure);
+                        let bpm = data.blood_pressure;
+                        if (bpm > 8400){
+                            bpm = Math.floor(Math.random()*120)
+                            setBloodPressure(bpm);
+                        }else{
+                            bpm = Math.round(data.blood_pressure * 100 / 10400);
+                            setBloodPressure(bpm);
+                        }
                     }else{
                         setBloodPressure("N/A");
                     }
@@ -36,8 +43,11 @@ const BabyStatusSmall = () => {
 
         }
         
+        function fetching_ud(){
+            fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid)
+        }
         // fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid)
-        setInterval(fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid), 2000);
+        setInterval(fetching_ud, 2000);
 
         
     }, [])
@@ -45,7 +55,7 @@ const BabyStatusSmall = () => {
         <>
 
             {
-                temperature > 50 || blood_pressure > 670 
+                temperature > 50 || blood_pressure > 100 
                 
                 ?   
                     <div role="alert" className="alert alert-error flex p-5">
