@@ -88,7 +88,7 @@ const BabyStatusSmall = () => {
                             <div className="flex-col justify-start items-start gap-2.5 inline-flex">
                                 <div className="text-[#8c8a8a] text-[14px] font-normal">Blood Pressure</div>
                                 {blood_pressure != 0 ?
-                                    <div className="self-stretch font-[600] text-black text-md">{blood_pressure} kPa</div>
+                                    <div className="self-stretch font-[600] text-black text-md">{blood_pressure} BPM</div>
                                     :
                                     <span className='relative loading loading-spinner text-neutral left-7' />
                                 }
