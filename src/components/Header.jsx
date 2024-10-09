@@ -1,15 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Drawer from "./Drawer"
 import axios from "axios"
 import { useEffect, useState } from "react";
 
 const Header = ({ action, head, profile }) => {
 
+    const navigate = useNavigate();
+    
     function logout() {
         let sure = confirm("Are you sure you want to log out?");
         if (sure) {
             localStorage.removeItem('uid');
-            window.location.href = '/login';
+            // window.location.href = '/login';
+            navigate('/login');
         }
     }
 
@@ -35,6 +38,8 @@ const Header = ({ action, head, profile }) => {
         getSession()
     }, [])
 
+    
+    
     const handleForm = (e) => {
         e.preventDefault();
 
@@ -51,7 +56,10 @@ const Header = ({ action, head, profile }) => {
                 const res = response.data;
                 if (res.success) {
                     console.log("success");
-                    window.location.reload();
+                    alert("Note saved");
+                    // window.location.reload();
+                    navigate('/')
+
                 } else {
                     console.log("erro");
                 }
