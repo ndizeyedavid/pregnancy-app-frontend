@@ -144,8 +144,8 @@ const BabyStatusSmall = () => {
 
         }
         
-        fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid)
-        // setInterval(fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid), 2000);
+        // fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid)
+        setInterval(fetch_userdetails(JSON.parse(localStorage.getItem('uid')).uid), 2000);
         // generateRandom();
     }, []);
 
