@@ -11,6 +11,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const Profile = () => {
     const [success, setSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     function getSessions() {
         const parsedData = JSON.parse(localStorage.getItem('uid'));
         const pregnancy = parsedData.pregnancyDate;
@@ -39,6 +40,7 @@ const Profile = () => {
     const handleForm = (e) => {
         e.preventDefault();
         setSuccess(false);
+        setIsLoading(true);
         const formData = new FormData(e.target);
         const formObject = Object.fromEntries(formData.entries());
         axios.post(import.meta.env.VITE_BACKEND_URL + "/users/update?id=" + myId(), formObject)
@@ -46,6 +48,7 @@ const Profile = () => {
                 const data = response.data;
                 if (data.success) {
                     setSuccess(true);
+                    setIsLoading(false)
                     const jsDate = new Date(formObject.pregDate);
 
                     const formattedDate = jsDate.toLocaleDateString('en-US', {
@@ -116,9 +119,7 @@ const Profile = () => {
                                 {/* <input type='date' defaultValue='2024-12-06' required className='w-full px-3 py-2 mt-2 bg-transparent border rounded-lg shadow-sm outline-none text-base-content/90 focus:border-primary' /> */}
 
                             </div>
-                            <button type="submit" className='w-full text-base duration-150 btn btn-primary'>
-                                Update
-                            </button>
+                            {!isLoading ? <button type="submit" className='w-full text-base duration-150 btn btn-primary'>Update</button> : <button type="submit" className='w-full text-base duration-150 btn btn-primary' disabled><span className="loading loading-dots loading-lg"></span></button> }
 
                         </form>
 
