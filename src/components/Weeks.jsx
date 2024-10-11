@@ -11,14 +11,21 @@ if (localStorage.getItem('uid')){
     startDate = "2024-05-7";
 }
 
-console.log(startDate);
+// console.log(startDate);
 
 
 const calculateCurrentDay = (startDate) => {
-    const start = new Date(startDate);
+    var scramble = startDate.split('-');
+    // console.log(`${scramble[0]}-${scramble[2]}-${scramble[1]}`);
+    const start = new Date(`${scramble[0]}-${scramble[2]}-${scramble[1]}`);
     const today = new Date();
     const differenceInTime = today.getTime() - start.getTime();
     const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+    // console.log(startDate);
+    
+    // console.log("Start", start);
+    // console.log("Today ",today);
+    
     return Math.min(differenceInDays + 1, 280); // Ensure it doesn't exceed 280 days
 };
 // console.log(calculateCurrentDay(startDate));
