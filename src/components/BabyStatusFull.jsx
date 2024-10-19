@@ -60,6 +60,16 @@ const BabyStatusSmall = () => {
 
         
     }, [])
+
+    function calculate_pressure(){
+        var pressure = Number(blood_pressure) - 10;
+        if (pressure > 0){
+            return pressure;
+        }else{
+            return "N/A";
+        }
+    }
+    
     return (
         <>
 
@@ -107,8 +117,8 @@ const BabyStatusSmall = () => {
 
                     <div className="flex-col justify-start items-start gap-2.5 inline-flex relative left-[110px] bottom-[30px]">
                         <div className="text-[#8c8a8a] text-[14px] font-normal">Blood Pressure</div>
-                        {realBloodPressure != 0 ?
-                            <div className="self-stretch font-[600] text-black text-md">{realBloodPressure} mmHg</div>
+                        {blood_pressure != 0 ?
+                            <div className="self-stretch font-[600] text-black text-md">{calculate_pressure()} mmHg</div>
                             :
                             <span className='relative loading loading-spinner text-neutral left-7' />
                         }
