@@ -8,6 +8,7 @@ const BabyStatusSmall = () => {
     const [remainingDays, setRemainingDays] = useState(0);
     const [temperature, setTemperature] = useState(0);
     const [blood_pressure, setBloodPressure] = useState(0);
+    const [realBloodPressure, setRealBloodPressure] = useState(0);
 
     useEffect(() => {
 
@@ -131,7 +132,7 @@ const BabyStatusSmall = () => {
                         setTemperature("N/A")
                     }
 
-                    // Blood pressure
+                    // beat per minute
                     if (data.blood_pressure != 0) {
                         let bpm = data.blood_pressure;
                         if (bpm > 8400){
@@ -144,6 +145,14 @@ const BabyStatusSmall = () => {
                     }else{
                         setBloodPressure("N/A");
                     }
+
+                    // real blood pressure
+                    if (data.real_blood_pressure != 0){
+                        setRealBloodPressure(data.real_blood_pressure);
+                    }else{
+                        setRealBloodPressure("N/A");
+                    }
+                    
                 })
                 .catch((err)=>{
                     console.log('An error occured');
@@ -165,8 +174,8 @@ const BabyStatusSmall = () => {
                 temperature > 50 || blood_pressure > 100 
                 
                 ?   
-                    <div role="alert" className="alert alert-error flex p-5">
-                        <svg xmlns='http://www.w3.org/2000/svg' className='stroke-current shrink-0 h-6 w-6' fill='none' viewBox='0 0 24 24'>
+                    <div role="alert" className="flex p-5 alert alert-error">
+                        <svg xmlns='http://www.w3.org/2000/svg' className='w-6 h-6 stroke-current shrink-0' fill='none' viewBox='0 0 24 24'>
                             <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' />
                         </svg>
                         <span>Warning! Sensor data are very high.</span>
@@ -206,7 +215,19 @@ const BabyStatusSmall = () => {
                                 <div className="text-[#8c8a8a] text-[14px] font-normal">Days left</div>
                                 <div className="self-stretch font-[600] text-black text-md">{remainingDays}</div>
                             </div>
+                            
                         </div>
+
+                        <div className="flex-col justify-start items-start gap-2.5 inline-flex px-2">
+                            <div className="text-[#8c8a8a] text-[14px] font-normal">Blood Pressure</div>
+
+                            {realBloodPressure != 0 ?
+                                <div className="self-stretch font-[600] text-black text-md">{realBloodPressure} mmHg</div>
+                                :
+                                <span className='relative loading loading-spinner text-neutral left-5' />
+                            }
+                        </div>                        
+
                     </div>
                 </div>
             </div>
