@@ -1,5 +1,6 @@
 
-const Verifier = () => {
+const Verifier = ({onclick}) => {
+
   return (
     <>
      <div className="fixed w-full h-full z-[99999999]" style={{background: "rgba(255, 255, 255, 0.7)", backdropFilter: "blur(4px)"}}>
@@ -11,6 +12,8 @@ const Verifier = () => {
                     <h4 className="mt-4 text-lg font-semibold text-gray-800">Wait for confirmation</h4>
                     <p className="mt-4 text-sm text-gray-600">In order to use this application, you have to wait for the doctor to confirm your identity, and you will be granted to access this system <hr className="my-5" /> If the problem proceeds, please contact the app admnistrator</p>
                 </div>
+
+                <div className="flex items-center justify-center"><button onClick={onclick} className="btn btn-success btn-md">Retry</button></div>
             </div>
         </div>
      </div> 

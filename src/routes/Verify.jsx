@@ -8,6 +8,7 @@ const Verify = () => {
 
     const [isVerified, setIsVerified] = useState(false);
     const [uid, setUid] = useState('');
+    const [error, setError] = useState(false);
     
     function getSession() {
         const localStorageData = localStorage.getItem('uid');
@@ -37,11 +38,22 @@ const Verify = () => {
     }, [])
     
     getSession()
+
+    function retry(){
+      setError(false);
+      isVerified ? navigate('/') : setError(true)
+    }
     
   return (
     <>
-      {!isVerified ? <Verifier /> : navigate('/')}
+      {error ? <div className="absolute top-0 w-full p-5 z-[9999999999999999999]">
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+          <p class="font-bold">Not yet verified</p>
+          <p>Please wait for your doctor to verify you</p>
+        </div>
+      </div> : null}
 
+      {!isVerified ? <Verifier onclick={retry} /> : navigate('/')}
     </>
   )
 }
