@@ -5,6 +5,7 @@ import Options from "../components/Options";
 import Bottom from "../components/Bottom";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
+import Verifier from "../components/Verifier";
 const Home = () => {
     const navigate = useNavigate();
     useEffect(() => {

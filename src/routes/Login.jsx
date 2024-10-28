@@ -69,7 +69,7 @@ const Login = () => {
     }
     return (
         <>
-            <Link to="/" className="hidden " id="next">.</Link>
+            <Link to="/verify" className="hidden " id="next">.</Link>
             {error == "" ? null : <div className="absolute w-full px-2 mt-3"> <div className="p-4 text-red-700 bg-red-100 border-l-4 border-red-500 " role="alert"> <p className="font-bold">{error}</p> </div> </div>}
 
             <div className="flex flex-col items-center justify-center w-full mt-[72px]">

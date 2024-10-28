@@ -13,6 +13,7 @@ import Doctor from "./routes/Doctor";
 import Login from "./routes/Login";
 import Register from "./routes/Register";
 import ErrorPage from "./routes/ErrorPage";
+import Verify from "./routes/Verify";
 
 import Sports from "./routes/Sports";
 
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "/doctor",
     element: <Doctor />
+  },
+  {
+    path: "/verify",
+    element: <Verify />
   },
   {
     path: "/login",
