@@ -23,6 +23,7 @@ const Verify = () => {
     }
 
     useEffect(()=>{
+      function checkVerify(){
         axios.get(import.meta.env.VITE_BACKEND_URL + '/users/verify/'+uid)
             .then(response => {
                 const data = response.data;
@@ -30,6 +31,9 @@ const Verify = () => {
                 
                 setIsVerified(data[0].verified == 1 ? true : false)
             })
+      }
+
+      setInterval(checkVerify, 2000)
     }, [])
     
     getSession()
